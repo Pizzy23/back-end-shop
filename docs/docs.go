@@ -15,6 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/all-constumer": {
+            "get": {
+                "description": "Retrieve Constumer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Constumer"
+                ],
+                "summary": "Retrieve Constumer",
+                "responses": {
+                    "200": {
+                        "description": "List of Constumer",
+                        "schema": {
+                            "$ref": "#/definitions/db.Customer"
+                        }
+                    }
+                }
+            }
+        },
         "/api/all-item": {
             "get": {
                 "description": "Retrieve Item Event",
@@ -48,7 +71,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Storage"
+                    "Cashback"
                 ],
                 "summary": "Calculation Cashback Total",
                 "parameters": [
@@ -67,6 +90,72 @@ const docTemplate = `{
                         "description": "Used Create",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/constumer": {
+            "post": {
+                "description": "Create New Constumer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mkt"
+                ],
+                "summary": "Create New Constumer",
+                "parameters": [
+                    {
+                        "description": "Data for create new Constumer",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/interfaces.CustomerInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return for creat Constumer",
+                        "schema": {
+                            "$ref": "#/definitions/db.Customer"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/constumer/{id}": {
+            "get": {
+                "description": "Retrieve an Constumer by its ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mkt"
+                ],
+                "summary": "Retrieve Constumer by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Constumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Constumer Details",
+                        "schema": {
+                            "$ref": "#/definitions/db.Customer"
                         }
                     }
                 }
@@ -250,7 +339,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Storage"
+                    "Cashback"
                 ],
                 "summary": "Remove Cashback Total",
                 "parameters": [
@@ -332,6 +421,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/sync-customers": {
+            "get": {
+                "description": "Retrieve Constumer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Constumer"
+                ],
+                "summary": "Sync Constumer for external api",
+                "responses": {
+                    "200": {
+                        "description": "List of Constumer",
+                        "schema": {
+                            "$ref": "#/definitions/db.Customer"
+                        }
+                    }
+                }
+            }
+        },
         "/api/test-token": {
             "post": {
                 "description": "Cria um toke para auth do usuario",
@@ -390,6 +502,47 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "db.Customer": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "registrationDate": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "xp": {
+                    "type": "number"
+                },
+                "zipCode": {
+                    "type": "string"
+                }
+            }
+        },
         "db.Marketplace": {
             "type": "object",
             "properties": {
@@ -486,6 +639,38 @@ const docTemplate = `{
                 }
             }
         },
+        "interfaces.CustomerInput": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "string"
+                }
+            }
+        },
         "interfaces.MktInput": {
             "type": "object",
             "properties": {
@@ -565,7 +750,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
+	Host:             "3.14.29.134:8080",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Viva",

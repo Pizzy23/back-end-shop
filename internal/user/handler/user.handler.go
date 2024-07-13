@@ -15,7 +15,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param request body interfaces.CustomerInput true "Data for create new Constumer"
-// @Success 200 {object} db.Marketplace "Return for creat Constumer"
+// @Success 200 {object} db.Customer "Return for creat Constumer"
 // @Router /api/constumer [post]
 func CreateConstumer(c *gin.Context) {
 	var item interfaces.CustomerInput
@@ -39,7 +39,7 @@ func CreateConstumer(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path int true "Constumer ID"
-// @Success 200 {object} db.Marketplace "Constumer Details"
+// @Success 200 {object} db.Customer "Constumer Details"
 // @Router /api/constumer/{id} [get]
 func GetOneConstumer(c *gin.Context) {
 	idParam := c.Param("id")
@@ -57,7 +57,7 @@ func GetOneConstumer(c *gin.Context) {
 // @Tags Constumer
 // @Accept json
 // @Produce json
-// @Success 200 {object} db.Constumer "List of Constumer"
+// @Success 200 {object} db.Customer "List of Constumer"
 // @Router /api/all-constumer [get]
 func AllConstumer(c *gin.Context) {
 	user.PullAllConstumer(c)
@@ -68,7 +68,7 @@ func AllConstumer(c *gin.Context) {
 // @Tags Constumer
 // @Accept json
 // @Produce json
-// @Success 200 {object} db.Constumer "List of Constumer"
+// @Success 200 {object} db.Customer "List of Constumer"
 // @Router /api/sync-customers [get]
 func SyncConstumers(c *gin.Context) {
 	user.SyncExternalCustomers(c)

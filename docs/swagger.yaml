@@ -1,4 +1,31 @@
 definitions:
+  db.Customer:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      dateOfBirth:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      phone:
+        type: string
+      registrationDate:
+        type: string
+      state:
+        type: string
+      xp:
+        type: number
+      zipCode:
+        type: string
+    type: object
   db.Marketplace:
     properties:
       description:
@@ -62,6 +89,27 @@ definitions:
       zipCode:
         type: string
     type: object
+  interfaces.CustomerInput:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      dateOfBirth:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      phone:
+        type: string
+      state:
+        type: string
+      zipCode:
+        type: string
+    type: object
   interfaces.MktInput:
     properties:
       description:
@@ -106,13 +154,28 @@ definitions:
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
-host: localhost:8080
+host: 3.14.29.134:8080
 info:
   contact: {}
   description: This is a server for app.
   title: Viva
   version: "1.0"
 paths:
+  /api/all-constumer:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve Constumer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Constumer
+          schema:
+            $ref: '#/definitions/db.Customer'
+      summary: Retrieve Constumer
+      tags:
+      - Constumer
   /api/all-item:
     get:
       consumes:
@@ -149,7 +212,50 @@ paths:
             type: string
       summary: Calculation Cashback Total
       tags:
-      - Storage
+      - Cashback
+  /api/constumer:
+    post:
+      consumes:
+      - application/json
+      description: Create New Constumer
+      parameters:
+      - description: Data for create new Constumer
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/interfaces.CustomerInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Return for creat Constumer
+          schema:
+            $ref: '#/definitions/db.Customer'
+      summary: Create New Constumer
+      tags:
+      - Mkt
+  /api/constumer/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve an Constumer by its ID
+      parameters:
+      - description: Constumer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Constumer Details
+          schema:
+            $ref: '#/definitions/db.Customer'
+      summary: Retrieve Constumer by ID
+      tags:
+      - Mkt
   /api/mkt:
     post:
       consumes:
@@ -280,7 +386,7 @@ paths:
             type: string
       summary: Remove Cashback Total
       tags:
-      - Storage
+      - Cashback
   /api/storage/{id}:
     get:
       consumes:
@@ -319,6 +425,21 @@ paths:
       summary: Retrieve All Storage
       tags:
       - Storage
+  /api/sync-customers:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve Constumer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of Constumer
+          schema:
+            $ref: '#/definitions/db.Customer'
+      summary: Sync Constumer for external api
+      tags:
+      - Constumer
   /api/test-token:
     post:
       consumes:
