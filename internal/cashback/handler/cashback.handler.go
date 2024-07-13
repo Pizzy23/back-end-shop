@@ -11,7 +11,7 @@ import (
 
 // @Summary Calculation Cashback Total
 // @Description Calculation Cashback Total
-// @Tags Storage
+// @Tags Cashback
 // @Accept json
 // @Produce json
 // @Param request body interfaces.Purchase true "For add new cashbacks in wallet to consumer"
@@ -38,7 +38,7 @@ func CalculationCashBack(c *gin.Context) {
 
 // @Summary Remove Cashback Total
 // @Description Remove Cashback Total
-// @Tags Storage
+// @Tags Cashback
 // @Accept json
 // @Produce json
 // @Param request body interfaces.Purchase true "For add new cashbacks in wallet to consumer"

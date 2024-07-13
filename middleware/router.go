@@ -6,6 +6,7 @@ import (
 	cashback "viva/internal/cashback/handler"
 	mkt "viva/internal/mkt/handler"
 	storages "viva/internal/storages/handler"
+	user "viva/internal/user/handler"
 
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -48,5 +49,10 @@ func SetupRouter() *gin.Engine {
 	auth.POST("/mkt", mkt.CreateItem)
 	auth.GET("/all-item", mkt.AllItem)
 	auth.GET("/mkt/:id", mkt.GetOneItem)
+
+	auth.POST("/constumer", user.CreateConstumer)
+	auth.GET("/all-constumer", user.AllConstumer)
+	auth.GET("/constumer/:id", user.GetOneConstumer)
+	auth.GET("/sync-customers", user.SyncConstumers)
 	return r
 }
